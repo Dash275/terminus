@@ -17,26 +17,17 @@ module Control
   end
 
   def self.move(char, key)
-    if    key == "y" && self.space_valid?(char, -1, -1)
-      char.position[1] += -1
-      char.position[0] += -1
-    elsif key == "u" && self.space_valid?(char, -1, 1)
-      char.position[1] += -1
-      char.position[0] +=  1
-    elsif key == "h" && self.space_valid?(char, 0, -1)
-      char.position[0] += -1
-    elsif key == "j" && self.space_valid?(char, 1, 0)
-      char.position[1] +=  1
-    elsif key == "k" && self.space_valid?(char, -1, 0)
-      char.position[1] += -1
-    elsif key == "l" && self.space_valid?(char, 0, 1)
-      char.position[0] +=  1
-    elsif key == "b" && self.space_valid?(char, 1, -1)
-      char.position[1] +=  1
-      char.position[0] += -1
-    elsif key == "n" && self.space_valid?(char, 1, 1)
-      char.position[1] +=  1
-      char.position[0] +=  1
+    y, x = -1, -1 if key == "y"
+    y, x = -1, 1 if key == "u"
+    y, x = 0, -1 if key == "h"
+    y, x = 1, 0 if key == "j"
+    y, x = -1, 0 if key == "k"
+    y, x = 0, 1 if key == "l"
+    y, x = 1, -1 if key == "b"
+    y, x = 1, 1 if key == "n"
+    if self.space_valid?(char, y, x)
+      char.position[1] += y
+      char.position[0] += x
     end
   end
 end

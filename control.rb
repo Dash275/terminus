@@ -10,10 +10,12 @@ module Control
   def self.space_valid?(char, y_move, x_move)
     new_y = char.position[1] + y_move
     new_x = char.position[0] + x_move
-    if new_y >= 0 && new_x >= 0
-      return true
-    end
-    return false
+    return false if !space_in_bounds?(new_y, new_x)
+    return true
+  end
+
+  def self.space_in_bounds?(y, x)
+    return (y < 0 || y > 24 || x < 0 || x > 80) ? false : true
   end
 
   def self.move(char, key)

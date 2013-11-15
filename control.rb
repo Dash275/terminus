@@ -1,5 +1,8 @@
 #!/usr/local/bin/ruby
 
+require "./message"
+include Message
+
 module Control
   public
   def self.feed(char, key)
@@ -10,7 +13,11 @@ module Control
   def self.space_valid?(char, y_move, x_move)
     new_y = char.position[1] + y_move
     new_x = char.position[0] + x_move
-    return false if !space_in_bounds?(new_y, new_x)
+    if !space_in_bounds?(new_y, new_x)
+      Message.alert("You can't move that way.")
+      setpos(char.position[1], char.position[0])
+      return false
+    end
     return true
   end
 

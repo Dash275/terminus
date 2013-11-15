@@ -15,6 +15,12 @@ module Message
   end
 
   public
+  def self.alert(message)
+    setpos(0,0)
+    addstr(message)
+    getch
+  end
+
   def self.pop_up(h, w, x, y, message)
     text_box = Window.new(h, w, x, y)
     text_box.box(?|, ?-)

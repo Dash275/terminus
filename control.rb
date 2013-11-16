@@ -1,7 +1,4 @@
-#!/usr/local/bin/ruby
-
 require "./message"
-include Message
 
 module Control
   public

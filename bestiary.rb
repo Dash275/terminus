@@ -1,7 +1,4 @@
-#!/usr/local/bin/ruby
-
 require "curses"
-include Curses
 
 class Character
   attr_accessor :position
@@ -9,9 +6,9 @@ class Character
   attr_accessor :shields, :oxygen
 
   def draw
-    setpos(@position[1], @position[0])
-    addstr(@image)
-    setpos(@position[1], @position[0])
+    Curses.setpos(@position[1], @position[0])
+    Curses.addstr(@image)
+    Curses.setpos(@position[1], @position[0])
   end
 
   def damaged_for(n)

@@ -6,9 +6,9 @@ class Character
   attr_accessor :shields, :oxygen
 
   def draw
-    Curses.setpos(@position[1], @position[0])
+    Curses.setpos(@position[0], @position[1])
     Curses.addstr(@image)
-    Curses.setpos(@position[1], @position[0])
+    Curses.setpos(@position[0], @position[1])
   end
 
   def damaged_for(n)
@@ -21,8 +21,8 @@ class Character
 end
 
 class Roland < Character
-  def initialize(x,y)
-    @position = [x,y]
+  def initialize(y,x)
+    @position = [y,x]
     @image = ?@
     @shields = 100
     @oxygen = 100

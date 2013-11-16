@@ -1,3 +1,4 @@
+require "curses"
 require "./message"
 
 module Control
@@ -8,11 +9,11 @@ module Control
 
   private
   def self.space_valid?(char, y_move, x_move)
-    new_y = char.position[1] + y_move
-    new_x = char.position[0] + x_move
+    new_y = char.position[0] + y_move
+    new_x = char.position[1] + x_move
     if !space_in_bounds?(new_y, new_x)
       Message.alert("You can't move that way.")
-      setpos(char.position[1], char.position[0])
+      Curses.setpos(char.position[0], char.position[1])
       return false
     end
     return true
@@ -32,8 +33,8 @@ module Control
     y, x = 1, -1 if key == "b"
     y, x = 1, 1 if key == "n"
     if self.space_valid?(char, y, x)
-      char.position[1] += y
-      char.position[0] += x
+      char.position[0] += y
+      char.position[1] += x
     end
   end
 end

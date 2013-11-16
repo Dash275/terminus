@@ -11,7 +11,7 @@ module Control
   def self.space_valid?(char, y_move, x_move)
     new_y = char.position[0] + y_move
     new_x = char.position[1] + x_move
-    if !space_in_bounds?(new_y, new_x)
+    if space_out_of_bounds?(new_y, new_x)
       Message.alert("You can't move that way.")
       Curses.setpos(char.position[0], char.position[1])
       return false
@@ -19,8 +19,8 @@ module Control
     return true
   end
 
-  def self.space_in_bounds?(y, x)
-    return (y < 0 || y > 24 || x < 0 || x > 80) ? false : true
+  def self.space_out_of_bounds?(y, x)
+    return (y < 0 || y > 24 || x < 0 || x > 80) ? true : false
   end
 
   def self.move(char, key)

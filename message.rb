@@ -18,10 +18,10 @@ module Message
     Curses.getch
   end
 
-  def self.pop_up(h, w, x, y, message)
-    text_box = Curses::Window.new(h, w, x, y)
+  def self.pop_up(h, w, y, x, message)
+    text_box = Curses::Window.new(h, w, y, x)
     text_box.box(?|, ?-)
-    text_area = Curses::Window.new((h - 2), (w - 2), x + 1, y + 1)
+    text_area = Curses::Window.new((h - 2), (w - 2), y + 1, x + 1)
     text_area.setpos(0,0)
     text_area.addstr(message)
     text_box.refresh

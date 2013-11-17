@@ -1,10 +1,16 @@
 require "curses"
 require "./color"
 
-class Character
+class Terrain
   attr_accessor :position
   attr_accessor :image, :color, :style
-  attr_accessor :shields, :oxygen
+
+  def initialize(pos, image, color=Curses::COLOR_WHITE, style=Curses::A_NORMAL)
+    @position = pos
+    @image = image
+    @color = color
+    @style = style
+  end
 
   def draw
     Curses.setpos(@position[0], @position[1])
@@ -12,24 +18,5 @@ class Character
     Curses.addstr(@image)
     Curses.attroff(Curses.color_pair(@color)|@style)
     Curses.setpos(@position[0], @position[1])
-  end
-
-  def damaged_for(n)
-    @shields -= n
-  end
-
-  def oxygen_used(n)
-    @oxygen -= n
-  end
-end
-
-class Roland < Character
-  def initialize(y,x)
-    @position = [y,x]
-    @image = ?@
-    @color = 46 # True Green
-    @style = Curses::A_BOLD
-    @shields = 100
-    @oxygen = 100
   end
 end

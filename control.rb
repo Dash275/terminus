@@ -9,7 +9,7 @@ module Control
 
   private
   def self.space_valid?(world, char, y_move, x_move)
-    floor = []
+    floor = nil
     world.floors.each do |f|
       floor = f if f.beasts.any? {|x| x.class == Roland}
     end

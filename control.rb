@@ -4,15 +4,20 @@ require "./message"
 module Control
   public
   def self.feed(world, char, key)
-    self.move(world, char, key) if ("yuhjklbn").include?(key)
+    player_floor = floor_player_on(world)
+    self.move(player_floor, char, key) if ("yuhjklbn").include?(key)
   end
 
   private
-  def self.space_valid?(world, char, y_move, x_move)
+  def self.floor_player_on(world)
     floor = nil
     world.floors.each do |f|
       floor = f if f.beasts.any? {|x| x.class == Roland}
     end
+    return floor
+  end
+
+  def self.space_valid?(floor, char, y_move, x_move)
     new_y = char.position[0] + y_move
     new_x = char.position[1] + x_move
     if space_out_of_bounds?(new_y, new_x)
@@ -42,7 +47,7 @@ module Control
     return false
   end
 
-  def self.move(world, char, key)
+  def self.move(player_floor, char, key)
     y, x = -1, -1 if key == "y"
     y, x = -1, 1 if key == "u"
     y, x = 0, -1 if key == "h"
@@ -51,7 +56,7 @@ module Control
     y, x = 0, 1 if key == "l"
     y, x = 1, -1 if key == "b"
     y, x = 1, 1 if key == "n"
-    if self.space_valid?(world, char, y, x)
+    if self.space_valid?(player_floor, char, y, x)
       char.position[0] += y
       char.position[1] += x
     end

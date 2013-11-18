@@ -38,8 +38,8 @@ module Control
       if entity.position == new_pos && entity.passable == false
         return true
       end
-      return false
     end
+    return false
   end
 
   def self.move(world, char, key)

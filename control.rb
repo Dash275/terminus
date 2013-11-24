@@ -3,6 +3,16 @@ require "./message"
 
 module Control
   public
+  def self.player_look(char, world)
+    floor = self.floor_player_on(world)
+    viewable_tiles = char.can_see
+    viewable_tiles.each do |coordinate|
+      floor.terrain.each do |tile|
+        tile.seen = true if tile.position == coordinate
+      end
+    end
+  end
+
   def self.feed(world, char, key)
     player_floor = floor_player_on(world)
     self.move(player_floor, char, key) if ("yuhjklbn").include?(key)

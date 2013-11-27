@@ -5,7 +5,7 @@ module Control
   public
   def self.player_look(char, world)
     floor = self.floor_player_on(world)
-    viewable_tiles = char.can_see
+    viewable_tiles = char.can_see(world)
     viewable_tiles.each do |coordinate|
       floor.terrain.each do |tile|
         tile.seen = true if tile.position == coordinate
@@ -18,7 +18,6 @@ module Control
     self.move(player_floor, char, key) if ("yuhjklbn").include?(key)
   end
 
-  private
   def self.floor_player_on(world)
     floor = nil
     world.floors.each do |f|
@@ -27,6 +26,7 @@ module Control
     return floor
   end
 
+  private
   def self.space_valid?(floor, char, y_move, x_move)
     new_y = char.position[0] + y_move
     new_x = char.position[1] + x_move
